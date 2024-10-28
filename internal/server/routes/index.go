@@ -5,6 +5,6 @@ import (
 	"net/http"
 )
 
-func getRoot(w http.ResponseWriter, r *http.Request) {
+func GetIndex(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "This is the root page")
 }
