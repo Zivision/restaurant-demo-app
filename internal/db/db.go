@@ -1,7 +1,6 @@
 package db
 
 import (
-	"fmt"
 	"log"
 
 	"database/sql"
@@ -26,11 +25,5 @@ func OpenDB(name string) {
 
 // Creates table
 func CreateTable(name string) {
-
-
 	//statement, err := DB.Prepare(fmt.Sprintf())
 }
-
-
-
-
