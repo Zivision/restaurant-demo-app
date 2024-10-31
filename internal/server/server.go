@@ -1,8 +1,8 @@
 package server
 
 import (
+	"log"
 	"net/http"
-
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -13,9 +13,17 @@ import (
 
 func StartServer(PORT string) {
 	r := chi.NewRouter()
-	r.Use(middleware.Logger)
+	// Middleware
+	r.Use(middleware.RequestID)
+ 	r.Use(middleware.RealIP)
+  	r.Use(middleware.Logger)
+  	r.Use(middleware.Recoverer)
+
+	r.Handle("/*", http.FileServer(http.Dir("client/dist")))
 
 	// Index page
-	r.Get("/", routes.GetIndex)
-	http.ListenAndServe(PORT, r)
+	r.Get("/blank", routes.GetIndex)
+	if err := http.ListenAndServe(PORT, r); err != nil {
+		log.Fatal(err)
+	}
 }
